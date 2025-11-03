@@ -1,4 +1,5 @@
 import React from 'react'
+import Loading from '../Loading/Loading';
 import style from './NotFound.module.css'
 
 export default function NotFound() {
