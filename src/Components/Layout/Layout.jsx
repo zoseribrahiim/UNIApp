@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Header from "../Header/Header";
 import { AuthContext } from "../../Contexts/AuthContextProvider";
@@ -10,6 +10,9 @@ export default function Layout() {
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
+  if (!userToken) {
+    return <Navigate to={"/login"} />;
+  }
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -53,7 +56,11 @@ export default function Layout() {
         {/* Header */}
         {userToken && (
           <header className="flex justify-between items-center px-6 py-4 border-b bg-white dark:bg-gray-800 transition-colors duration-300">
-            <Header darkMode={darkMode} setDarkMode={setDarkMode} toggleSidebar={toggleSidebar} />
+            <Header
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              toggleSidebar={toggleSidebar}
+            />
 
             {/* Dark Mode Button */}
             <button
